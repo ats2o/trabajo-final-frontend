@@ -4,7 +4,6 @@ import { useState } from "react";
 export default function Scoring() {
     const [Scoring, setScoring] = useState(0)
     const [Resenas, setResena] = useState('')
-
     const handleSubmit = async (event) => {
         event.preventDefault()
         const valoracion = {
@@ -12,10 +11,8 @@ export default function Scoring() {
                 Scoring, Resenas
             }
         }
-
         const id = localStorage.getItem('idWebSelect')
         const token = localStorage.getItem('token')
-
         try {
             const response = await fetch(`http://localhost:4000/api/web/scoring/${id}`, {
                 method: 'PATCH',
@@ -25,15 +22,12 @@ export default function Scoring() {
                 },
                 body: JSON.stringify(valoracion)
             })
-
             const data = await response.json()
             console.log(data)
-
         } catch (error) {
             console.error("No está bien", error)
         }
     }
-
     return (
         <>
             <div className="scoring-container">

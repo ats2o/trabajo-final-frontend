@@ -5,14 +5,12 @@ import { useRouter } from "next/navigation";
 
 export default function UserOptions() {
     const router = useRouter()
-
     useEffect(() => {
         const role = localStorage.getItem('role')
         if (role !== 'admin') {
             router.push('/post/user/login')
         }
     }, [router])
-
     return (
         <div className="admin-container">
             <h1 className="title">Bienvenido, Admin</h1>
@@ -23,7 +21,6 @@ export default function UserOptions() {
                     Crear un Comercio
                 </button>
             </div>
-    
             <div className="option-button-container">
                 <button onClick={() => router.push('/post/comercio/login')} className="btn btn-login">
                     Login Comercio

@@ -7,13 +7,10 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [userEmail, setUserEmail] = useState("")
     const [isLoggedIn, setIsLoggedIn] = useState(false)
-
     const router = useRouter();
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         const datos = { email, password };
-
         try {
             const response = await fetch("http://localhost:4000/api/user/login", {
                 method: "POST",
@@ -22,10 +19,8 @@ export default function Login() {
                 },
                 body: JSON.stringify(datos),
             });
-
             const data = await response.json();
             console.log(data);
-
             const user = {
                 token: data.data.token,
                 role: data.data.user.role,
@@ -34,24 +29,19 @@ export default function Login() {
             }
             setUserEmail(user.email)
             setIsLoggedIn(true)
-
-            
             localStorage.setItem('id', user.id)
             localStorage.setItem("token", user.token)
             localStorage.setItem('role', user.role)
             sessionStorage.getItem('token', user.token)
-
             if (user.role === 'admin') {
                 router.push('/options/admin')
             } else if (user.role === 'user') {
                 router.push('/options/user')
             }
-
         } catch (error) {
             console.error("No está bien", error)
         }
     };
-
     if (isLoggedIn) {
         return (
             <div>
@@ -60,7 +50,6 @@ export default function Login() {
             </div>
         );
     }
-
     return (
         <div className="form-container">
             <form onSubmit={handleSubmit} className="form">

@@ -4,18 +4,15 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function CrearWeb() {
-
     const [Ciudad, setCiudad] = useState('')
     const [Actividad, setActividad] = useState('')
     const [Titulo, setTitulo] = useState('')
     const [Resumen, setResumen] = useState('')
     const router = useRouter()
-
     const handleSubmit = async (event) => {
         event.preventDefault()
         const create = {Ciudad, Actividad, Titulo, Resumen}
         const tokenCif = localStorage.getItem('tokenCif')
-
         try {
             const response = await fetch('http://localhost:4000/api/web', {
                 method: 'POST',
@@ -25,23 +22,17 @@ export default function CrearWeb() {
                 },
                 body: JSON.stringify(create)
             })
-
             const data = await response.json()
             console.log(data)
-
             const web = {
                 id: data.data._id
             }
-
             localStorage.setItem('idWeb', web.id)
-            
             router.push('/options/web')
-
         } catch (error) {
             console.error("No está bien", error)
         }
     }
-
     return (
         <>
         <div className="form-container">

@@ -3,9 +3,7 @@ import { useRouter } from "next/navigation";
 
 export default function AllContentWeb({ web }) {
     const router = useRouter()
-
     localStorage.setItem('idWebSelect', web._id)
-
     return (
         <>
                 <h2 className="title">Toda la info de la web seleccionada</h2>

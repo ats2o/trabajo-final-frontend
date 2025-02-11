@@ -3,7 +3,6 @@ import React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-
 export default function UpdateComercio() {
     const [name, setName] = useState('')
     const [direccion, setDireccion] = useState('')

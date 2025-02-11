@@ -6,16 +6,13 @@ export default function SubirFoto() {
     const [file, setFile] = useState(null)
     const [texto, setTexto] = useState('')
     const router = useRouter()
-
     const handleSubmit = async (event) => {
         event.preventDefault()
         const tokenCif = localStorage.getItem('tokenCif')
         const id = localStorage.getItem('idWeb')
-
         const formData = new FormData()
         formData.append("image", file)
         formData.append("Array_textos", texto)
-
         try {
             const response = await fetch('http://localhost:4000/api/storage', {
                 method: 'POST',
@@ -24,10 +21,8 @@ export default function SubirFoto() {
                 },
                 body: formData
             })
-
             const data = await response.json()
             console.log(data)
-
             const subirFoto = await fetch(`http://localhost:4000/api/storage/${id}`, {
                 method: 'PATCH', 
                 headers: {
@@ -36,20 +31,15 @@ export default function SubirFoto() {
                 },
                 body: JSON.stringify({Array_textos: texto, Array_imagenes: data.data.url})
             })
-
             const dataFoto = await subirFoto.json()
             console.log(dataFoto)
-            
-
         } catch (error) {
             console.error("No está bien", error)
         }
     }
-
     const handleFileChange = (e) => {
         setFile(e.target.files[0])
     }
-
     return (
         <>
             <div className="upload-container">

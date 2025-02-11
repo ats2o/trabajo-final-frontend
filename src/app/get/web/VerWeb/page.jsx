@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 // import Filter from "./Filter";
 
 export default function WebList() {
-
     const [web, setWeb] = useState([]);
     const [webSelected, setWebSelected] = useState();
     const [cityWeb, setCityWeb] = useState("");
@@ -14,40 +13,33 @@ export default function WebList() {
     const [user, setUser] = useState(false)
     const [admin, setAdmmin] = useState(false)
     const router = useRouter()
-
     const handleSubmit = async (event) => {
         event.preventDefault()
-
         const role = localStorage.getItem('role')
         if (role === 'admin') {
             setAdmmin(true)
         } else if (role === 'user') {
             setUser(true)
         }
-
         try {
             const response = await fetch("http://localhost:4000/api/web")
             const data = await response.json()
             console.log(data)
             setWeb(data)
             setCurrentWebList(data)
-
         } catch (error) {
             console.error("No está bien", error)
         }
     }
-
     const order = () => {
         const sortedWeb = [...web].sort(
             (a, b) => b.resenas_users.Scoring - a.resenas_users.Scoring
         )
         setCurrentWebList(sortedWeb);
     }
-
     const filter = currentWebList.filter((city) =>
         city.Ciudad.toLowerCase().includes(cityWeb.toLowerCase())
     )
-
     const ListWeb = filter.map(web => (
         <div key={web._id}>
             <h3 onClick={() => setWebSelected(web)}>Titulo: {web.Titulo}</h3>
@@ -55,7 +47,6 @@ export default function WebList() {
             <p>Actividad de la web: {web.Actividad}</p>
         </div>
     ))
-
     return (
     <div>
         <form onSubmit={handleSubmit}>
@@ -63,7 +54,6 @@ export default function WebList() {
                 <div id="id">
                     <h1 className="title">Lista de las webs</h1> 
                     <button onClick={() => setClick(prev => !prev)}>Ver webs</button>
-
                     {click && (
                         <ul>
                             {ListWeb.map((web, index) => (
@@ -71,7 +61,6 @@ export default function WebList() {
                             ))}
                         </ul>
                     )}
-
                     {click && (
                         <div>
                             <label className="label">Filtrar por ciudad: </label>
@@ -90,13 +79,11 @@ export default function WebList() {
                 </div>
             )}
         </form>
-
         {admin && (
             <button onClick={() => router.push('/options/admin')} className="btn-secondary">
                 Volver
             </button>
         )}
-
         {user && (
             <button onClick={() => router.push('/options/user')} className="btn-secondary">
                 Volver
@@ -104,6 +91,4 @@ export default function WebList() {
         )}
     </div>
 );
-
 }
-
