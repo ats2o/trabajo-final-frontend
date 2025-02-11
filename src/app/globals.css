@@ -3,14 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4e1ff;
+  --foreground: #1a1a1a;
+  --primary: #d6b3ff;
+  --secondary: #c299ff;
+  --accent: #a066ff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1a1a1a;
+    --foreground: #f4e1ff;
+    --primary: #a066ff;
+    --secondary: #c299ff;
+    --accent: #d6b3ff;
   }
 }
 
@@ -18,4 +24,124 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Navigation Container */
+.nav-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Navigation Buttons */
+.nav-button {
+  background-color: var(--secondary);
+  color: var(--foreground);
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100px;
+  text-align: center;
+}
+
+.nav-button:hover {
+  background-color: var(--accent);
+}
+
+.nav-button:active {
+  background-color: var(--primary);
+}
+
+/* Login Container */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--background);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Login Form */
+.form {
+  background-color: var(--primary);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Form Labels */
+.label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--foreground);
+  grid-column: span 2;
+}
+
+/* Input Fields */
+.input {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid var(--secondary);
+  border-radius: 5px;
+  background-color: var(--background);
+  color: var(--foreground);
+  outline: none;
+  transition: border-color 0.3s ease;
+  grid-column: span 2;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  background-color: var(--primary);
+}
+
+/* Submit Button */
+.submit-btn {
+  background-color: var(--accent);
+  color: var(--foreground);
+  border: none;
+  border-radius: 5px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  grid-column: span 2;
+}
+
+.submit-btn:hover {
+  background-color: var(--secondary);
+}
+
+.submit-btn:active {
+  background-color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+  .label, .input, .submit-btn {
+    grid-column: span 1;
+  }
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav-button {
+    width: 80%;
+  }
 }
