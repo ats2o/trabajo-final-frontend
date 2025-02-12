@@ -1,94 +1,95 @@
-"use client"
-import { use, useEffect, useState } from "react";
+'use client'
+import { useState } from "react";
 import AllContentWeb from "../Allweb/page";
 import { useRouter } from "next/navigation";
-// import Filter from "./Filter";
 
 export default function WebList() {
     const [web, setWeb] = useState([]);
-    const [webSelected, setWebSelected] = useState();
+    const [webSelected, setWebSelected] = useState(null);
     const [cityWeb, setCityWeb] = useState("");
-    const [currentWebList, setCurrentWebList] = useState([])
-    const [click, setClick] = useState(false)
-    const [user, setUser] = useState(false)
-    const [admin, setAdmmin] = useState(false)
-    const router = useRouter()
-    const handleSubmit = async (event) => {
-        event.preventDefault()
-        const role = localStorage.getItem('role')
+    const [currentWebList, setCurrentWebList] = useState([]);
+    const [click, setClick] = useState(false);
+    const [user, setUser] = useState(false);
+    const [admin, setAdmin] = useState(false);
+    const router = useRouter();
+    const fetchWebData = async () => {
+        const role = localStorage.getItem('role');
         if (role === 'admin') {
-            setAdmmin(true)
+            setAdmin(true);
         } else if (role === 'user') {
-            setUser(true)
+            setUser(true);
         }
         try {
-            const response = await fetch("http://localhost:4000/api/web")
-            const data = await response.json()
-            console.log(data)
-            setWeb(data)
-            setCurrentWebList(data)
+            const response = await fetch("http://localhost:4000/api/web");
+            const data = await response.json();
+            console.log(data);
+            setWeb(data);
+            setCurrentWebList(data);
         } catch (error) {
-            console.error("No está bien", error)
+            console.error("Error al obtener datos:", error);
         }
-    }
+    };
+    const handleClick = () => {
+        setClick(prev => !prev);
+        if (!click) fetchWebData(); // Carga los datos solo si click es falso
+    };
     const order = () => {
-        const sortedWeb = [...web].sort(
-            (a, b) => b.resenas_users.Scoring - a.resenas_users.Scoring
-        )
+        const sortedWeb = [...web].sort((a, b) => {
+            if (a.resenas_users && b.resenas_users) {
+                return b.resenas_users.Scoring - a.resenas_users.Scoring;
+            }
+            return 0; // Evita errores si no hay datos de puntuación
+        });
         setCurrentWebList(sortedWeb);
-    }
-    const filter = currentWebList.filter((city) =>
-        city.Ciudad.toLowerCase().includes(cityWeb.toLowerCase())
-    )
-    const ListWeb = filter.map(web => (
-        <div key={web._id}>
-            <h3 onClick={() => setWebSelected(web)}>Titulo: {web.Titulo}</h3>
-            <p>Ciudad de la web: {web.Ciudad}</p>
-            <p>Actividad de la web: {web.Actividad}</p>
-        </div>
-    ))
+    };
+    const filteredWebList = web.length > 0 
+        ? currentWebList.filter(city => city.Ciudad.toLowerCase().includes(cityWeb.toLowerCase())) 
+        : [];
     return (
-    <div>
-        <form onSubmit={handleSubmit}>
+        <div>
             {!webSelected ? (
                 <div id="id">
                     <h1 className="title">Lista de las webs</h1> 
-                    <button onClick={() => setClick(prev => !prev)}>Ver webs</button>
+                    <button onClick={handleClick}>
+                        {click ? "Ocultar webs" : "Ver webs"}
+                    </button>
                     {click && (
-                        <ul>
-                            {ListWeb.map((web, index) => (
-                                <li key={index}>{web}</li>
-                            ))}
-                        </ul>
-                    )}
-                    {click && (
-                        <div>
-                            <label className="label">Filtrar por ciudad: </label>
-                            <input 
-                                type="text" 
-                                onChange={(e) => setCityWeb(e.target.value)} className="input" 
-                            />
-                            <br />
-                            <button type="button" onClick={order}>Ordena la página</button>
-                        </div>
+                        <>
+                            <ul>
+                                {filteredWebList.map(web => (
+                                    <li key={web._id} onClick={() => setWebSelected(web)}>
+                                        <h3>Título: {web.Titulo}</h3>
+                                        <p>Ciudad: {web.Ciudad}</p>
+                                        <p>Actividad: {web.Actividad}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                            <div>
+                                <label className="label">Filtrar por ciudad: </label>
+                                <input 
+                                    type="text" 
+                                    onChange={(e) => setCityWeb(e.target.value)} 
+                                    className="input" 
+                                />
+                                <br />
+                                <button type="button" onClick={order}>Ordenar por puntuación</button>
+                            </div>
+                        </>
                     )}
                 </div>
             ) : (
-                <div>
-                    <AllContentWeb web={webSelected} />
-                </div>
+                <AllContentWeb web={webSelected} />
             )}
-        </form>
-        {admin && (
-            <button onClick={() => router.push('/options/admin')} className="btn-secondary">
-                Volver
-            </button>
-        )}
-        {user && (
-            <button onClick={() => router.push('/options/user')} className="btn-secondary">
-                Volver
-            </button>
-        )}
-    </div>
-);
+            {admin && (
+                <button onClick={() => router.push('/options/admin')} className="btn-secondary">
+                    Volver
+                </button>
+            )}
+            {user && (
+                <button onClick={() => router.push('/options/user')} className="btn-secondary">
+                    Volver
+                </button>
+            )}
+        </div>
+    );
 }

@@ -1,66 +1,64 @@
-'use client';
-import { use, useState } from "react";
+"use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function Login() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [userEmail, setUserEmail] = useState("")
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+export default function LoginPage() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const router = useRouter();
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        const datos = { email, password };
-        try {
-            const response = await fetch("http://localhost:4000/api/user/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(datos),
-            });
-            const data = await response.json();
-            console.log(data);
-            const user = {
-                token: data.data.token,
-                role: data.data.user.role,
-                email: data.data.user.email,
-                id: data.data.user._id
-            }
-            setUserEmail(user.email)
-            setIsLoggedIn(true)
-            localStorage.setItem('id', user.id)
-            localStorage.setItem("token", user.token)
-            localStorage.setItem('role', user.role)
-            sessionStorage.getItem('token', user.token)
-            if (user.role === 'admin') {
-                router.push('/options/admin')
-            } else if (user.role === 'user') {
-                router.push('/options/user')
-            }
-        } catch (error) {
-            console.error("No está bien", error)
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        // Simulación de autenticación (aquí iría la petición real a la API)
+        if (email === "usuario@email.com" && password === "123456") {
+            const user = { email, token: "fake-token-123" };
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // Redirigir a la página deseada después del login
+            router.push("/dashboard");  // Cambia "/dashboard" por la ruta que quieras
+        } else {
+            setError("Credenciales incorrectas. Inténtalo de nuevo.");
         }
     };
-    if (isLoggedIn) {
-        return (
-            <div>
-                <h1>Bienvenido, {userEmail}</h1>
-                <p>Has iniciado sesión correctamente.</p>
-            </div>
-        );
-    }
+
     return (
-        <div className="form-container">
-            <form onSubmit={handleSubmit} className="form">
-                <label className="label">Email: </label>
-                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="input"/>
-                <br />
-                <label className="label">Password: </label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="input"/>
-                <br />
-                <button type="submit" className="submit-btn">Enviar</button>
-            </form>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <div className="bg-white shadow-lg rounded-lg p-8 w-96">
+                <h2 className="text-2xl font-semibold text-center text-gray-700">
+                    Iniciar Sesión
+                </h2>
+                {error && <p className="text-red-500 text-center mt-2">{error}</p>}
+                <form onSubmit={handleLogin} className="space-y-4 mt-4">
+                    <div>
+                        <label className="block text-gray-600 text-sm">Correo</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-gray-600 text-sm">Contraseña</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition"
+                    >
+                        Iniciar Sesión
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }

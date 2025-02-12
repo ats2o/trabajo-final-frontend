@@ -1,34 +1,35 @@
 'use client';
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export default function ComercioOptions() {
-    const router = useRouter()
+    const router = useRouter();
+    const handleNavigation = (path) => {
+        if (router) {
+            router.push(path);
+        }
+    };
     return (
         <div className="web-options-container">
             <p className="subtitle">Elige una de las siguientes opciones:</p>
-            <div>
-                <button onClick={() => router.push('/delete/web')} className="btn btn-delete">
-                    Borrar web
+            <div className="option-button-container">
+                <button onClick={() => handleNavigation('/delete/web')} className="btn btn-delete">
+                    Borrar Web
                 </button>
             </div>
-            <br />
-            <div>
-                <button onClick={() => router.push('/get/web/GetUserCity')} className="btn btn-view-city">
-                    Ver usuarios de la misma ciudad
+            <div className="option-button-container">
+                <button onClick={() => handleNavigation('/get/web/GetUserCity')} className="btn btn-view-city">
+                    Ver Usuarios de la Misma Ciudad
                 </button>
             </div>
-            <br />
-            <div>
-                <button onClick={() => router.push('/patch/web')} className="btn btn-upload">
-                    Subir imagen
+            <div className="option-button-container">
+                <button onClick={() => handleNavigation('/patch/web')} className="btn btn-upload">
+                    Subir Imagen
                 </button>
             </div>
-            <br />
-            <div>
-                <button onClick={() => router.push('/update/web')} className="btn btn-update">
-                    Modificar web
+            <div className="option-button-container">
+                <button onClick={() => handleNavigation('/update/web')} className="btn btn-update">
+                    Modificar Web
                 </button>
             </div>
         </div>

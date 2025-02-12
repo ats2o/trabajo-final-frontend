@@ -15,7 +15,7 @@ export default function Navbar() { // Define el componente Navbar como la export
     return ( // Retorna el JSX que define la estructura del componente Navbar.
         <nav className="fixed top-0 left-0 w-full bg-gray-900 text-white py-4 px-6 shadow-lg flex justify-between items-center"> 
             <Link href="/" className="text-lg font-semibold hover:text-gray-300 transition"> 
-                Casa 
+                Home 
             </Link>
             <div className="flex items-center space-x-4"> 
                 {!isLoggedIn ? ( // Condicional que verifica si el usuario no está logueado.
