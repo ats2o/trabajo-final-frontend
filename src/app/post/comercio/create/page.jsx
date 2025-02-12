@@ -22,7 +22,7 @@ export default function CreateComercio() {
         const token = localStorage.getItem("token");
         try {
             setIsLoading(true);
-            const response = await fetch("http://localhost:4000/api/comercio", {
+            const response = await fetch("http://localhost:1234/api/comercio", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

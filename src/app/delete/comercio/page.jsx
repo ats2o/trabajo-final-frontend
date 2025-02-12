@@ -8,7 +8,7 @@ export default function DeleteComercio() { // Define un componente funcional lla
         const token = localStorage.getItem('token'); // Obtiene el token de autenticación del almacenamiento local
         const CIF = localStorage.getItem('CIF'); // Obtiene el CIF del almacenamiento local
         try {
-            const response = await fetch(`http://localhost:4000/api/comercio/${CIF}`, { // Realiza una solicitud DELETE a la API con el CIF
+            const response = await fetch(`http://localhost:1234/api/comercio/${CIF}`, { // Realiza una solicitud DELETE a la API con el CIF
                 method: 'DELETE', // Especifica que el método de la solicitud es DELETE
                 headers: {
                     'Authorization': `Bearer ${token}`, // Añade el token de autenticación en los encabezados de la solicitud

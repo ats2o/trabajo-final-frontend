@@ -10,7 +10,7 @@ export default function DeleteWeb() { // Define un componente funcional llamado 
         const id = localStorage.getItem('idWeb'); // Obtiene el idWeb del localStorage
         const tokenCif = localStorage.getItem('tokenCif'); // Obtiene el tokenCif del localStorage
         try {
-            const response = await fetch(`http://localhost:4000/api/web/${id}`, { // Realiza una solicitud DELETE a la API con el id obtenido
+            const response = await fetch(`http://localhost:1234/api/web/${id}`, { // Realiza una solicitud DELETE a la API con el id obtenido
                 method: 'DELETE', // Especifica el método HTTP DELETE
                 headers: {
                     'Authorization': `Bearer ${tokenCif}`, // Añade el token de autorización en los headers

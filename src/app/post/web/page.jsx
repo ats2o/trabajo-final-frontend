@@ -18,7 +18,7 @@ export default function CrearWeb() {
             return;
         }
         try {
-            const response = await fetch("http://localhost:4000/api/web", {
+            const response = await fetch("http://localhost:1234/api/web", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

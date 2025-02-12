@@ -20,7 +20,7 @@ export default function WebList() {
             setUser(true);
         }
         try {
-            const response = await fetch("http://localhost:4000/api/web");
+            const response = await fetch("http://localhost:1234/api/web");
             const data = await response.json();
             console.log(data);
             setWeb(data);

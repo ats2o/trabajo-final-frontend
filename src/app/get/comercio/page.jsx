@@ -11,7 +11,7 @@ export default function VerComercio() { // Define el componente VerComercio
         event.preventDefault(); // Previene el comportamiento por defecto del formulario
         const token = localStorage.getItem('token'); // Obtiene el token del localStorage
         try {
-            const response = await fetch('http://localhost:4000/api/comercio/?ordenar=asc', { // Realiza una solicitud GET a la API
+            const response = await fetch('http://localhost:1234/api/comercio/?ordenar=asc', { // Realiza una solicitud GET a la API
                 method: 'GET', // Método de la solicitud
                 headers: {
                     'Authorization': `Bearer ${token}` // Añade el token en los headers de la solicitud

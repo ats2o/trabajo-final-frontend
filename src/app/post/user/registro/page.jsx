@@ -18,7 +18,7 @@ export default function Register() {
         event.preventDefault();
         const register = { nombre, email, password, edad, ciudad, intereses, permiteofertas };
         try {
-            const response = await fetch('http://localhost:4000/api/user/register', {
+            const response = await fetch('http://localhost:1234/api/user/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(register)

@@ -18,7 +18,7 @@ export default function UpdateWeb() {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:4000/api/web/${id}`, {
+            const response = await fetch(`http://localhost:1234/api/web/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ export default function GetUserCity() {
         event.preventDefault(); // Previene el comportamiento por defecto del formulario
         const tokenCif = localStorage.getItem('tokenCif'); // Obtiene el token del localStorage
         try {
-            const response = await fetch('http://localhost:4000/api/web/userInteresadoCiudad', {
+            const response = await fetch('http://localhost:1234/api/web/userInteresadoCiudad', {
                 method: 'GET', 
                 headers: {
                     'Authorization': `Bearer ${tokenCif}` // Añade el token en los headers de la solicitud

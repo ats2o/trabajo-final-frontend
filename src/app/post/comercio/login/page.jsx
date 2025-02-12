@@ -10,7 +10,7 @@ export default function LoginComercio() {
         const login = {email}
         const token = localStorage.getItem('token')
         try {
-            const response = await fetch('http://localhost:4000/api/comercio/login', {
+            const response = await fetch('http://localhost:1234/api/comercio/login', {
                 method: 'POST', 
                 headers: {
                     'Content-Type': 'application/json',

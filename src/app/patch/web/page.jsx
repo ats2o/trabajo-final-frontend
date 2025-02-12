@@ -23,7 +23,7 @@ export default function SubirFoto() {
         try {
             setIsLoading(true);
             // Subir imagen
-            const response = await fetch("http://localhost:4000/api/storage", {
+            const response = await fetch("http://localhost:1234/api/storage", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${tokenCif}`,
@@ -36,7 +36,7 @@ export default function SubirFoto() {
             const data = await response.json();
             console.log("Imagen subida:", data);
             // Guardar imagen y texto en la web
-            const subirFoto = await fetch(`http://localhost:4000/api/storage/${id}`, {
+            const subirFoto = await fetch(`http://localhost:1234/api/storage/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",

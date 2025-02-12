@@ -18,7 +18,7 @@ export default function Scoring() {
             }
         };
         try {
-            const response = await fetch(`http://localhost:4000/api/web/scoring/${id}`, {
+            const response = await fetch(`http://localhost:1234/api/web/scoring/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

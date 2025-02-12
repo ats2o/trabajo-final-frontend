@@ -19,7 +19,7 @@ export default function Update() {
             return;
         }
         try {
-            const response = await fetch(`http://localhost:4000/api/user/${id}`, {
+            const response = await fetch(`http://localhost:1234/api/user/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
